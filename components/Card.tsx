@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { IconSymbol } from './ui/IconSymbol';
 import { useThemeColor} from '@/hooks/useThemeColor';
+import { useRouter } from 'expo-router';
+
 
 
 interface CardProps {
@@ -13,6 +15,14 @@ const Card: React.FC<CardProps> = ({ title, description, complete }) => {
   const backgroundColor = useThemeColor({},'background');
   const color = useThemeColor({}, 'text');
   const shadowColor = useThemeColor( {}, 'shadowColor');
+  const router = useRouter();
+
+  const handleLinkPress = () => {
+    router.push({
+      pathname: '/(tabs)/(home)/[title]',
+      params: { title: link },
+    })
+  }
 
   return (
     <View style={[
@@ -23,9 +33,17 @@ const Card: React.FC<CardProps> = ({ title, description, complete }) => {
       <Text style={[styles.description, { color }]}>{description}</Text>
       <Text style={[styles.complete, { color }]}>
         {complete ? ' Complete' : 'Incomplete'}
-        <TouchableOpacity style={styles.button}>
+       {/*  <TouchableOpacity style={styles.button}>
             <IconSymbol name="checkmark" size={24} color={color} />    
-        </TouchableOpacity>  
+        </TouchableOpacity> 
+         */}
+        {/* <Link>
+          onPress={handleLinkPress}
+            <LinkText>See Details</LinkText>
+        </Link> */}
+        <TouchableOpacity style={styles.button} onPress={() => console.log(`Link preessed: ${link}`)}>
+            <Text style={styles.link}>See Details</Text>
+        </TouchableOpacity>
       </Text>
         
     </View>
@@ -61,6 +79,12 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 8,
     alignItems: 'flex-start',
+  },
+  link: {
+    color: '#007AFF',
+    textDecorationLine: 'underline',
+    fontSize: 14,
+    paddingLeft: 8,
   },
 });
 
