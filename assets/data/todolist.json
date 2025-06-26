@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Grocery shopping",
+    "description": "Buy milk, eggs, and bread",
+    "completed": false
+  },
+  {
+    "title": "Pay bills",
+    "description": "Pay electricity and internet bills",
+    "completed": true
+  },
+  {
+    "title": "Schedule dentist appointment",
+    "description": "Call and schedule for next week",
+    "completed": false
+  }
+]

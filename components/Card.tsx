@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { IconSymbo } from './ui/IconSymbol';
-import { useThemeColor} from './hooks/useThemeColor';
+import { IconSymbol } from './ui/IconSymbol';
+import { useThemeColor} from '@/hooks/useThemeColor';
+
 
 interface CardProps {
   title: string;
-  location: string;
-  rating: number;
-  link: string;
+  description: string;
+  complete: boolean;
 } 
-const Card: React.FC<CardProps> = ({ title, location, rating, link }) => {
+const Card: React.FC<CardProps> = ({ title, description, complete }) => {
   const backgroundColor = useThemeColor({},'background');
   const color = useThemeColor({}, 'text');
   const shadowColor = useThemeColor( {}, 'shadowColor');
@@ -20,11 +20,14 @@ const Card: React.FC<CardProps> = ({ title, location, rating, link }) => {
         styles.card
       ]}>
       <Text style={[styles.title, { color }]}>{title}</Text>
-      <Text style={[styles.location, { color }]}>{location}</Text>
-      <Text style={[styles.rating, { color }]}>Rating: {rating.toFixed(1)}</Text>
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Link pressed:')}>
-        <Text style={[styles.link, { color }]}>View Details</Text>
-      </TouchableOpacity>
+      <Text style={[styles.description, { color }]}>{description}</Text>
+      <Text style={[styles.complete, { color }]}>
+        {complete ? ' Complete' : 'Incomplete'}
+        <TouchableOpacity style={styles.button}>
+            <IconSymbol name="checkmark" size={24} color={color} />    
+        </TouchableOpacity>  
+      </Text>
+        
     </View>
   );
 } 
@@ -46,20 +49,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 4,
   },
-  location: {
+  description: {
     fontSize: 14,
     marginBottom: 4,
   },
-  rating: {
+  complete: {
     fontSize: 14,
     marginBottom: 8,
   },
-  link: {
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  },
+  
   button: {
     paddingVertical: 8,
     alignItems: 'flex-start',
   },
 });
+
+export default Card;
