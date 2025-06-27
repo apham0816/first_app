@@ -4,8 +4,6 @@ import { Box } from '@/components/ui/box';
 import { Heading } from '@/components/ui/heading';
 import {SafeAreaView} from '@/components/ui/safe-area-view';
 import { Text } from '@/components/ui/text';
-
-
 import todolist from '@/assets/data/todolist.json'; // <-- Make sure to import or define todolist
 import { VStack } from '@/components/ui/vstack';
 
@@ -33,7 +31,7 @@ export default function DetailPage() {
                 <Text size='lg'>Description: {description}</Text>
                 <Text size='lg'>Completed:  {completed}</Text>
             </VStack>
-            <Button title="Go Back" onPress={() => router.back()}  />
+            {/* <Button title="Go Back" onPress={() => router.back()}  /> */}
         </Box>
         </SafeAreaView>
     )

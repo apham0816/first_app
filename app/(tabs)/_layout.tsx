@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import React, { useContext } from 'react';
 import { Platform, Alert } from 'react-native';
 
@@ -9,24 +9,33 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Button, ButtonText } from '@/components/ui/button';
 import { ThemeContext } from "../_layout";
+import { Box } from '@/components/ui/box';
+import { Fab, FabIcon } from '@/components/ui/fab';
+import { EditIcon } from '@/components/ui/icon';
 
 export default function TabLayout() {
+  const router = useRouter();
   const colorScheme = useColorScheme();
-  const { toggleColorMode } = useContext(ThemeContext);
+  const { colorMode } = useContext(ThemeContext);
 
   return (
+    <Box className='flex-1'>
+
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: true,
+        headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            backgroundColor: colorMode === 'light' ? '#fff' : '#27272a',
           },
-          default: {},
+          default: {
+            backgroundColor: colorMode === 'light' ? '#fff' : '#27272a',
+          },
         }),
       }}>
       <Tabs.Screen
@@ -34,14 +43,6 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-          headerRight:() =>(
-            <Button
-            title="Toggle Color Mode"
-              onPress={toggleColorMode}
-            >
-              <ButtonText>Light</ButtonText>
-            </Button>
-          )
         }}
       />
       
@@ -50,15 +51,17 @@ export default function TabLayout() {
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="heart.fill" color={color} />,
-          headerRight:() =>(
-            <Button
-              onPress={() => Alert.alert('Button Pressed', 'This is a custom button in the header!')}
-            >
-              <ButtonText>Light</ButtonText>
-            </Button>
-          )
+          
         }}
       />
     </Tabs>
+    <Fab
+      size='lg'
+      className='bottom-32 dark:bg-zinc-700'
+      onPress={() => router.navigate('/add-task')}
+    >
+        <FabIcon as={EditIcon} color="white" />
+    </Fab>
+    </Box>
   );
 }

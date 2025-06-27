@@ -1,4 +1,5 @@
 import {  createContext, useContext, useState } from "react";
+import todolist from '@/assets/data/todolist.json'
 
 export type List ={
     title: string;
@@ -9,7 +10,7 @@ export type List ={
 }
 type ListContextType ={
     lists: List[];
-    addList: (tdList: List) => void;
+    addList: (list: List) => void;
     updateList: (id: string, updatedList: Partial<List>) => void;
     toggleFavorite: (id: string) => void;
 }
@@ -17,7 +18,7 @@ type ListContextType ={
 const ListContext = createContext<ListContextType | undefined>(undefined);
 
 export const ListProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [lists, setLists] = useState<List[]>([]);
+    const [lists, setLists] = useState<List[]>(todolist as List[]);
     
     const addList = (list: List) => {
         setLists((prev) => [...prev, list]);

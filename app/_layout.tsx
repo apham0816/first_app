@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 
 /* import { useColorScheme } from '@/hooks/useColorScheme'; */
 import { GluestackUIProvider ,ModeType} from '@/components/ui/gluestack-ui-provider'
+import { ListProvider } from '@/components/ui/todolist-context-provider';
 
 type ThemeContextType = {
   colorMode: ModeType;
@@ -47,11 +48,13 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode={colorMode}>
     <ThemeContext.Provider value={{colorMode,toggleColorMode}}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <ListProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ListProvider>
     </ThemeContext.Provider>
     </GluestackUIProvider>
   );
