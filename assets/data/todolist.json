@@ -2,16 +2,19 @@
   {
     "title": "Grocery shopping",
     "description": "Buy milk, eggs, and bread",
-    "completed": false
+    "completed": false,
+    "link": "Grocery shopping"
   },
   {
     "title": "Pay bills",
     "description": "Pay electricity and internet bills",
-    "completed": true
+    "completed": true,
+    "link": "Pay bills"
   },
   {
     "title": "Schedule dentist appointment",
     "description": "Call and schedule for next week",
-    "completed": false
+    "completed": false,
+    "link": "Pay bills"
   }
 ]

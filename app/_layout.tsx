@@ -1,23 +1,30 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import "@/global.css"
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+/* import { useColorScheme } from '@/hooks/useColorScheme'; */
+import { GluestackUIProvider ,ModeType} from '@/components/ui/gluestack-ui-provider'
 
-type ThemeCotextType = {
+type ThemeContextType = {
   colorMode: ModeType;
   toggleColorMode: (mode: ModeType) => void;
 }
+export const ThemeContext = createContext<ThemeContextType>({
+  colorMode: 'light',
+  toggleColorMode: () => {}, 
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [colorMode, setColorMode] = useState<ModeType>("light");
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -32,13 +39,20 @@ export default function RootLayout() {
     return null;
   }
 
+  const toggleColorMode = async () => {
+    setColorMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  console.log("colorMode", colorMode);
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <GluestackUIProvider mode={colorMode}>
+    <ThemeContext.Provider value={{colorMode,toggleColorMode}}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
-    </ThemeProvider>
+    </ThemeContext.Provider>
+    </GluestackUIProvider>
   );
 }

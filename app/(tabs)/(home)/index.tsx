@@ -1,11 +1,13 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import { View, Text, TextInput,FlatList, Button, ScrollView} from 'react-native';
 import todolist from '@/assets/data/todolist.json';
 import Card from '@/components/Card';
 import { useTheme } from '@react-navigation/native';
+import { Box } from '@/components/ui/box';
+import { Input, InputField } from '@/components/ui/input';
+import { Heading } from '@/components/ui/heading';
+
 
 
 export default function HomeScreen() {
@@ -34,24 +36,21 @@ export default function HomeScreen() {
   };  */
 
   return (
-    <ScrollView style={styles.container}>
-      
-      <ThemedText style={styles.subtitle} type="subtitle">Welcome to Your To-Do List</ThemedText>
-        <TextInput 
-        style={[{backgroundColor, color}, styles.searchInput]}
-        placeholder="Search tasks..."
-        value={searchQuery}
-        onChangeText={handleSearch}
-      />
-       
+    <Box className='flex-1 p-4'>
+      <Heading size='xl' className='self-center'>Welcome to Your To-Do List</Heading>
+        <Input variant='outline' size='lg'className='bg-white dark:bg-zinc-900 mt-2'>
+          <InputField 
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChangeText={handleSearch}
+          />
+        </Input>
         <FlatList 
           data ={filteredTasks}
           keyExtractor={(item) => item.title}
           renderItem={({ item }) => (
             <Card 
-              title={item.title}
-              description={item.description}
-              complete={item.completed}
+              {...item}
             />
           )}
         /> 
@@ -71,24 +70,13 @@ export default function HomeScreen() {
         )}
       /> */}
       
-    </ScrollView>
+    </Box>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    top: 60,
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
-  },
-  subtitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 8,
-    color: '#333',
-    textAlign: 'center',
-  },
+  
+  
   header: {
     
     paddingVertical: 24,
@@ -133,3 +121,4 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+

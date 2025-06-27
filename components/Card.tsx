@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { IconSymbol } from './ui/IconSymbol';
 import { useThemeColor} from '@/hooks/useThemeColor';
 import { useRouter } from 'expo-router';
-
+import { Link, LinkText } from './ui/link';
 
 
 interface CardProps {
   title: string;
   description: string;
-  complete: boolean;
+  completed: boolean;
+  link: string; 
 } 
-const Card: React.FC<CardProps> = ({ title, description, complete }) => {
+const Card: React.FC<CardProps> = ({ title, description, completed, link }) => {
   const backgroundColor = useThemeColor({},'background');
   const color = useThemeColor({}, 'text');
   const shadowColor = useThemeColor( {}, 'shadowColor');
@@ -32,19 +33,18 @@ const Card: React.FC<CardProps> = ({ title, description, complete }) => {
       <Text style={[styles.title, { color }]}>{title}</Text>
       <Text style={[styles.description, { color }]}>{description}</Text>
       <Text style={[styles.complete, { color }]}>
-        {complete ? ' Complete' : 'Incomplete'}
-       {/*  <TouchableOpacity style={styles.button}>
+        {completed ? ' Complete' : 'Incomplete'}
+        {/* <TouchableOpacity style={styles.button}>
             <IconSymbol name="checkmark" size={24} color={color} />    
         </TouchableOpacity> 
          */}
-        {/* <Link>
-          onPress={handleLinkPress}
-            <LinkText>See Details</LinkText>
-        </Link> */}
-        <TouchableOpacity style={styles.button} onPress={() => console.log(`Link preessed: ${link}`)}>
-            <Text style={styles.link}>See Details</Text>
-        </TouchableOpacity>
       </Text>
+      <Link
+          className="flex-row items-center-center justify-center"     
+          onPress={handleLinkPress}
+          >
+            <LinkText>See Details</LinkText>
+        </Link>
         
     </View>
   );

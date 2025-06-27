@@ -1,28 +1,19 @@
 import {useLocalSearchParams, useRouter} from 'expo-router';
-import { Button, ScrollView, StyleSheet } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-export default function DeatilScnreen() {
+import { Button } from 'react-native';
+import { Box } from '@/components/ui/box';
+import { Heading } from '@/components/ui/heading';
+
+
+export default function DetailScreen() {
     const router = useRouter();
     const { title } = useLocalSearchParams<{title: string}>()
 
     return (
-        <ScrollView style={styles.container}>
-
-            <ThemedText style={styles.subtitle} type="subtitle">Dynamic Page</ThemedText>
-            {/* <Button onPress={() => router.back()} title="Go Back" >Back</Button> */}
-        </ScrollView>
+        <Box className='flex-1 p-4'>
+            <Heading size='xl' className='self-center'>Dynamic Page: {title}</Heading>
+            <Button title="Go Back" onPress={() => router.back()}  />
+        </Box>
     )
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-    },
-    subtitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 12,
-    },
-});

@@ -58,10 +58,8 @@ export default function HomeScreen() {
           keyExtractor={(item) => item.title}
           renderItem={({ item }) => (
             <Card 
-              title={item.title}
-              description={item.description}
-              complete={item.completed}
-            />
+             {...item}            
+             />
           )}
         /> 
       
@@ -86,13 +84,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   
-  
-  header: {
-    
-    paddingVertical: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
