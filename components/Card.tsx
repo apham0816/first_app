@@ -10,9 +10,9 @@ interface CardProps {
   title: string;
   description: string;
   completed: boolean;
-  link: string; 
+  id: string; 
 } 
-const Card: React.FC<CardProps> = ({ title, description, completed, link }) => {
+const Card: React.FC<CardProps> = ({ title, description, completed, id }) => {
   const backgroundColor = useThemeColor({},'background');
   const color = useThemeColor({}, 'text');
   const shadowColor = useThemeColor( {}, 'shadowColor');
@@ -21,7 +21,7 @@ const Card: React.FC<CardProps> = ({ title, description, completed, link }) => {
   const handleLinkPress = () => {
     router.push({
       pathname: '/(tabs)/(home)/[title]',
-      params: { title: link },
+      params: { title: id },
     })
   }
 

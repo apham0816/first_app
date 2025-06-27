@@ -3,18 +3,21 @@
     "title": "Grocery shopping",
     "description": "Buy milk, eggs, and bread",
     "completed": false,
-    "link": "Grocery shopping"
+    "id": "Grocery shopping",
+    "isFavorite": true
   },
   {
     "title": "Pay bills",
     "description": "Pay electricity and internet bills",
     "completed": true,
-    "link": "Pay bills"
+    "id": "Pay bills",
+    "isFavorite": true
   },
   {
     "title": "Schedule dentist appointment",
     "description": "Call and schedule for next week",
     "completed": false,
-    "link": "Pay bills"
+    "id": "Pay bills",
+    "isFavorite": true
   }
 ]
